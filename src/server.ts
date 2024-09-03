@@ -1,6 +1,6 @@
 import express from "express";
-import CommentRouter from "./routes/CommentRoutes";
 
+import CommentRouter from "./routes/CommentRoutes";
 import PostRouter from "./routes/PostRoutes";
 import UserRouter from "./routes/UserRoutes";
 

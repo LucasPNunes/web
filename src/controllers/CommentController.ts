@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 
 import { PrismaClient } from "@prisma/client";
+import VerifyComment from "../utils/VerifyComment";
 
 const prisma = new PrismaClient();
 
@@ -10,7 +11,7 @@ class CommentController{
     }
     async listComments(req: Request, res: Response){
         try{
-            const comments = prisma.comment.findMany()
+            const comments = await prisma.comment.findMany()
             res.json(comments)
         }catch(error){
             console.log(error);
@@ -29,6 +30,16 @@ class CommentController{
                     message: "O comentario deve possuir um conteudo",
                 })
             }
+
+            const response = await VerifyComment(commentData.conteudo)
+
+            if(response == "true"){
+                return res.status(400).json({
+                    status: 400,
+                    message: "O comentario é ofensivo.",
+                })
+            }
+
             const newComment = await prisma.comment.create({
                 data: commentData,
                 });
