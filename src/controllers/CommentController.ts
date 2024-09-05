@@ -31,15 +31,14 @@ class CommentController{
                 })
             }
 
-            const response = await VerifyComment(commentData.conteudo)
-
-            if(response == "true"){
+            const response = await VerifyComment(commentData.content)
+            console.log(response)
+            if(response === "true"){
                 return res.status(400).json({
                     status: 400,
-                    message: "O comentario é ofensivo.",
+                    message: "Comentario ofensivo",
                 })
             }
-
             const newComment = await prisma.comment.create({
                 data: commentData,
                 });
