@@ -60,6 +60,11 @@ class PostController{
                     id: parseInt(postId)
                 },
             })
+
+            res.status(400).json({
+                status: 200,
+                message: "Post deletado com sucesso"
+            })
         }catch(error){
             console.log(error);
             res.json({

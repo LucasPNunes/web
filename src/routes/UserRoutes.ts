@@ -9,12 +9,12 @@ const UserRouter = Router();
 UserRouter.get("/users", UserController.listUser);
 
 //Inserir usuários
-UserRouter.post("/user", UserController.createUser);
+UserRouter.post("/users", UserController.createUser);
 
 //Atualizar usuários
-UserRouter.put("/user/:id", UserController.updateUser);
+UserRouter.put("/users/:id", UserController.updateUser);
 
 //Deletar usuários
-UserRouter.delete("/user/:id", UserController.deleteUser);
+UserRouter.delete("/users/delete/:id", UserController.deleteUser);
 
 export default UserRouter;
