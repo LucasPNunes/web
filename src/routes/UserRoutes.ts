@@ -9,7 +9,7 @@ const UserRouter = Router();
 UserRouter.get("/users", UserController.listUser);
 
 //Inserir usuários
-UserRouter.post("/users", UserController.createUser);
+UserRouter.post("/users/create", UserController.createUser);
 
 //Atualizar usuários
 UserRouter.put("/users/:id", UserController.updateUser);

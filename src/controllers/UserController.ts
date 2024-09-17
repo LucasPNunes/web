@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 
 import { PrismaClient } from "@prisma/client";
+import { CreateHashPassword } from "../utils/HashPassword";
 
 const prisma = new PrismaClient();
 
@@ -31,8 +32,9 @@ class UserController {
                 message: "Você precisa passar o email no corpo da requisição",
               });
             }
-        
-            console.log(userdata);
+            
+            userdata.password = await CreateHashPassword(userdata.password);
+            
             const newuser = await prisma.user.create({
               data: userdata,
             });
