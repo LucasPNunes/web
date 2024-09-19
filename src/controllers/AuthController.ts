@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { PrismaClient } from "@prisma/client";
 import { CheckUserPassword } from "../utils/HashPassword";
+import { generateJWToken } from "../utils/JWT";
 
 const prisma = new PrismaClient();
 
@@ -41,8 +42,12 @@ class AuthController{
                 })
             }
 
+            const token = generateJWToken(user)
             return res.json({
                 status: 200,
+                user:{
+                    token
+                }, 
                 message: "Autenticação bem sucedida."
             })
 
@@ -55,7 +60,23 @@ class AuthController{
         
         
     }
-    async signUp(){
+    async signUp(req: Request, res: Response){
+        try{
+        const newUser = req.body
+        if(newUser.password !== newUser.confirmarSenha){
+            return res.json({
+                status: 400,
+                message: "As senhas devem ser iguais"
+            })
+        }
+
+        }catch(error){
+            console.log(error);
+            return res.status(500).json({
+                error: error
+            })
+        }
+        
 
     }
     async signOut(){
