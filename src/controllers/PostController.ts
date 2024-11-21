@@ -10,7 +10,13 @@ class PostController{
     }
     async listPosts(req: Request, res: Response){
         try{
-            const posts = await prisma.post.findMany();
+            const posts = await prisma.post.findMany({
+                include: {
+                comments: true,
+                author: true
+                },
+                
+            });
   
             res.json(posts)
         }catch(error){

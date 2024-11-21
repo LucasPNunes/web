@@ -22,6 +22,46 @@ class UserController {
         }
     }
 
+    async listUserById(req: Request, res: Response){
+      try {
+            const id = req.params.id;
+            const user = await prisma.user.findUnique({
+              where: {
+                id: parseInt(id),
+                
+              },
+              include: {
+                posts: {
+                  include: {
+                    comments: {
+                      include: {
+                        author: true,
+                      },
+                    },
+                    author: true
+                  }
+                }
+              },
+                
+            });
+        
+            if (!user) {
+              return res.status(404).json({
+                status: 404,
+                message: "Usuário não encontrado",
+              });
+            }
+        
+            res.json(user);
+          } catch (error) {
+            console.log(error);
+            res.json({
+              status: 500,
+              message: error,
+            });
+          }
+    }
+
     async createUser(req: Request, res: Response){
         try {
             const userdata = req.body;

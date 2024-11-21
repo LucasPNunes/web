@@ -8,6 +8,9 @@ const UserRouter = Router();
 //Listar usuários
 UserRouter.get("/users", UserController.listUser);
 
+//Buscar um usuário por ID
+UserRouter.get("/users/:id", UserController.listUserById);
+
 //Inserir usuários
 UserRouter.post("/users/create", UserController.createUser);
 
